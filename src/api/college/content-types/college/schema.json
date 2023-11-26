@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "colleges",
+  "info": {
+    "singularName": "college",
+    "pluralName": "colleges",
+    "displayName": "College",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 250
+    },
+    "establishedYear": {
+      "type": "integer",
+      "max": 3000,
+      "min": 1700
+    },
+    "pin": {
+      "type": "integer",
+      "max": 999999,
+      "min": 100000
+    },
+    "rating": {
+      "type": "decimal",
+      "max": 10,
+      "min": 1
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "inversedBy": "colleges"
+    },
+    "state": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::state.state",
+      "inversedBy": "colleges"
+    },
+    "city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::city.city",
+      "inversedBy": "colleges"
+    }
+  }
+}

@@ -28,6 +28,12 @@
       "relation": "oneToMany",
       "target": "api::city.city",
       "mappedBy": "state"
+    },
+    "colleges": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::college.college",
+      "mappedBy": "state"
     }
   }
 }

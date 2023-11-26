@@ -21,6 +21,12 @@
       "targetField": "name",
       "required": true,
       "private": true
+    },
+    "colleges": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::college.college",
+      "mappedBy": "courses"
     }
   }
 }

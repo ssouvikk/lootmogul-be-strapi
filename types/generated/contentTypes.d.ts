@@ -702,11 +702,81 @@ export interface ApiCityCity extends Schema.CollectionType {
       'manyToOne',
       'api::state.state'
     >;
+    colleges: Attribute.Relation<
+      'api::city.city',
+      'oneToMany',
+      'api::college.college'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCollegeCollege extends Schema.CollectionType {
+  collectionName: 'colleges';
+  info: {
+    singularName: 'college';
+    pluralName: 'colleges';
+    displayName: 'College';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 250;
+      }>;
+    establishedYear: Attribute.Integer &
+      Attribute.SetMinMax<{
+        min: 1700;
+        max: 3000;
+      }>;
+    pin: Attribute.Integer &
+      Attribute.SetMinMax<{
+        min: 100000;
+        max: 999999;
+      }>;
+    rating: Attribute.Decimal &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 10;
+      }>;
+    slug: Attribute.UID<'api::college.college', 'name'>;
+    courses: Attribute.Relation<
+      'api::college.college',
+      'manyToMany',
+      'api::course.course'
+    >;
+    state: Attribute.Relation<
+      'api::college.college',
+      'manyToOne',
+      'api::state.state'
+    >;
+    city: Attribute.Relation<
+      'api::college.college',
+      'manyToOne',
+      'api::city.city'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::college.college',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::college.college',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -730,6 +800,11 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     slug: Attribute.UID<'api::course.course', 'name'> &
       Attribute.Required &
       Attribute.Private;
+    colleges: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::college.college'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -772,6 +847,11 @@ export interface ApiStateState extends Schema.CollectionType {
       'oneToMany',
       'api::city.city'
     >;
+    colleges: Attribute.Relation<
+      'api::state.state',
+      'oneToMany',
+      'api::college.college'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -806,6 +886,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::city.city': ApiCityCity;
+      'api::college.college': ApiCollegeCollege;
       'api::course.course': ApiCourseCourse;
       'api::state.state': ApiStateState;
     }
