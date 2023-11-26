@@ -27,6 +27,12 @@
       "relation": "manyToMany",
       "target": "api::college.college",
       "mappedBy": "courses"
+    },
+    "students": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::student.student",
+      "mappedBy": "courses"
     }
   }
 }

@@ -764,6 +764,11 @@ export interface ApiCollegeCollege extends Schema.CollectionType {
       'manyToOne',
       'api::city.city'
     >;
+    students: Attribute.Relation<
+      'api::college.college',
+      'manyToMany',
+      'api::student.student'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -804,6 +809,11 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       'api::course.course',
       'manyToMany',
       'api::college.college'
+    >;
+    students: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'api::student.student'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -869,6 +879,62 @@ export interface ApiStateState extends Schema.CollectionType {
   };
 }
 
+export interface ApiStudentStudent extends Schema.CollectionType {
+  collectionName: 'students';
+  info: {
+    singularName: 'student';
+    pluralName: 'students';
+    displayName: 'Student';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 250;
+      }>;
+    email: Attribute.Email &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    batchYear: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 1700;
+        max: 3000;
+      }>;
+    colleges: Attribute.Relation<
+      'api::student.student',
+      'manyToMany',
+      'api::college.college'
+    >;
+    courses: Attribute.Relation<
+      'api::student.student',
+      'manyToMany',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::student.student',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::student.student',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -889,6 +955,7 @@ declare module '@strapi/types' {
       'api::college.college': ApiCollegeCollege;
       'api::course.course': ApiCourseCourse;
       'api::state.state': ApiStateState;
+      'api::student.student': ApiStudentStudent;
     }
   }
 }
