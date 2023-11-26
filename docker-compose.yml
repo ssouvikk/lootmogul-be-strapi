@@ -29,9 +29,7 @@ services:
       - api-nms:/app/node_modules/
     depends_on:
       - db
-        # condition: service_healthy
-        # restart: true
-
+  
   pma:
     image: phpmyadmin:5.2.1-apache
     restart: always
