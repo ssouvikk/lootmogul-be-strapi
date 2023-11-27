@@ -694,9 +694,7 @@ export interface ApiCityCity extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
-    slug: Attribute.UID<'api::city.city', 'name'> &
-      Attribute.Required &
-      Attribute.Private;
+    slug: Attribute.UID<'api::city.city', 'name'> & Attribute.Required;
     state: Attribute.Relation<
       'api::city.city',
       'manyToOne',
@@ -792,6 +790,7 @@ export interface ApiCourseCourse extends Schema.CollectionType {
     singularName: 'course';
     pluralName: 'courses';
     displayName: 'Course';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -802,9 +801,7 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
-    slug: Attribute.UID<'api::course.course', 'name'> &
-      Attribute.Required &
-      Attribute.Private;
+    slug: Attribute.UID<'api::course.course', 'name'> & Attribute.Required;
     colleges: Attribute.Relation<
       'api::course.course',
       'manyToMany',
@@ -849,9 +846,7 @@ export interface ApiStateState extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
-    slug: Attribute.UID<'api::state.state', 'name'> &
-      Attribute.Required &
-      Attribute.Private;
+    slug: Attribute.UID<'api::state.state', 'name'> & Attribute.Required;
     cities: Attribute.Relation<
       'api::state.state',
       'oneToMany',
