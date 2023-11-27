@@ -897,12 +897,6 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
-    batchYear: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<{
-        min: 1700;
-        max: 3000;
-      }>;
     colleges: Attribute.Relation<
       'api::student.student',
       'manyToMany',
