@@ -8,6 +8,10 @@ Strapi comes with a full featured [Command Line Interface](https://docs.strapi.i
 - Docker Compose (version v2.23.0-desktop)
 
 
+## Set Up
+- copy & create .env file from .env.example & configure
+
+
 ## Run application:
 
 ```bash
